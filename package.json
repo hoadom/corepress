@@ -8,6 +8,8 @@
   "scripts": {
     "test": "vitest",
     "dev": "encore run",
+    "pr:sto": "npx prisma studio",
+    "pr:gen": "npx prisma generate",
     "migrate:create": "npx db-migrate create --sql-file --config ./shared/database/src/config/database.json  --migrations-dir ./shared/database/src/migrations",
     "migrate:up": "npx db-migrate up --config ./shared/database/src/config/database.json  --migrations-dir ./shared/database/src/migrations"
   },
@@ -17,10 +19,16 @@
     "vitest": "^1.5.0"
   },
   "dependencies": {
+    "@prisma/client": "^5.21.1",
     "encore.dev": "^1.43.7",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "postgresql": "^0.0.1",
+    "prisma": "^5.21.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.13.0"
+  },
+  "prisma": {
+    "schema": "shared/database/src/prisma"
   }
 }
