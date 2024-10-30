@@ -4,9 +4,12 @@
   "version": "0.0.1",
   "description": "Encore Typescript Starter",
   "license": "MPL-2.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "dev": "encore run",
+    "migrate:create": "npx db-migrate create --sql-file --config ./shared/database/src/config/database.json  --migrations-dir ./shared/database/src/migrations",
+    "migrate:up": "npx db-migrate up --config ./shared/database/src/config/database.json  --migrations-dir ./shared/database/src/migrations"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
@@ -14,7 +17,8 @@
     "vitest": "^1.5.0"
   },
   "dependencies": {
-    "encore.dev": "^1.43.7"
+    "encore.dev": "^1.43.7",
+    "pg": "^8.13.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.13.0"
