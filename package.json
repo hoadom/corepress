@@ -8,9 +8,9 @@
   "scripts": {
     "test": "vitest",
     "dev": "encore run",
-    "db:gen":"npx drizzle-kit generate --config=./shared/database/src/config/index.ts",
-    "db:update":"npx drizzle-kit push --config=./shared/database/src/config/index.ts",
-    "db:drop":"npx drizzle-kit drop --config=./shared/database/src/config/index.ts"
+    "db:gen": "npx drizzle-kit generate --config=./shared/database/src/config/index.ts",
+    "db:update": "npx drizzle-kit push --config=./shared/database/src/config/index.ts",
+    "db:drop": "npx drizzle-kit drop --config=./shared/database/src/config/index.ts"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
@@ -25,7 +25,10 @@
     "drizzle-orm": "^0.36.0",
     "encore.dev": "^1.43.7",
     "pg": "^8.13.1",
-    "postgresql": "^0.0.1"
+    "pg-types": "^4.0.2",
+    "postgresql": "^0.0.1",
+    "zod": "^3.23.8",
+    "zod-to-ts": "^1.2.0"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.13.0"
