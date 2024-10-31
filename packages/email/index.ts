@@ -1,5 +1,4 @@
 import { api } from "encore.dev/api";
-import { pgDb , usersTable} from "@/shared";
 
 export const get = api(
   { expose: true, method: "GET", path: "/hello/:name" },

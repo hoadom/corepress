@@ -1,3 +1,8 @@
-export const SERVICE_NAME = {
-  USER: "user",
+
+export const SERVICES = {
+  USER: {
+    name: "user",
+    apiPrefix: "user",
+  },
+  EMAIL: { name: "email", apiPrefix: "/email" },
 };
