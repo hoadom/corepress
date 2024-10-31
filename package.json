@@ -8,27 +8,26 @@
   "scripts": {
     "test": "vitest",
     "dev": "encore run",
-    "pr:sto": "npx prisma studio",
-    "pr:gen": "npx prisma generate",
-    "migrate:create": "npx db-migrate create --sql-file --config ./shared/database/src/config/database.json  --migrations-dir ./shared/database/src/migrations",
-    "migrate:up": "npx db-migrate up --config ./shared/database/src/config/database.json  --migrations-dir ./shared/database/src/migrations"
+    "db:gen":"npx drizzle-kit generate --config=./shared/database/src/config/index.ts",
+    "db:update":"npx drizzle-kit push --config=./shared/database/src/config/index.ts",
+    "db:drop":"npx drizzle-kit drop --config=./shared/database/src/config/index.ts"
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
+    "@types/pg": "^8.11.10",
+    "drizzle-kit": "^0.27.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.2.2",
     "vitest": "^1.5.0"
   },
   "dependencies": {
-    "@prisma/client": "^5.21.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.36.0",
     "encore.dev": "^1.43.7",
     "pg": "^8.13.1",
-    "postgresql": "^0.0.1",
-    "prisma": "^5.21.1"
+    "postgresql": "^0.0.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.13.0"
-  },
-  "prisma": {
-    "schema": "shared/database/src/prisma"
   }
 }
