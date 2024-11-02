@@ -1,9 +1,10 @@
 import { APIError, ErrCode } from "encore.dev/api";
-import { z, ZodType, ZodUndefined } from "zod";
+import { z, ZodError, ZodType, ZodUndefined } from "zod";
+import { HTTPError } from "./http-error";
 
 type UndefinedOrZod<T> = T extends undefined ? ZodUndefined : ZodType<any, any>;
 
-export const useHandler = async <
+export const useBaseHandler = async <
   TBody extends ZodType<any, any> | undefined,
   TQuery extends ZodType<any, any> | undefined
 >({
@@ -25,22 +26,30 @@ export const useHandler = async <
   }) => Promise<{ message: string; data?: any; meta?: any; status: number }>;
 }) => {
   try {
-    const requestBody = schema?.body
-      ? schema.body.safeParse(request.body)
-      : { success: true, data: undefined };
-    const requestQuery = schema?.query
-      ? schema.query.safeParse(request.query)
-      : { success: true, data: undefined };
+    const requestBody: any = schema?.body
+      ? schema.body?.parse(request?.body)
+      : null;
+    const requestQuery: any = schema?.query
+      ? schema.query?.parse(request?.query)
+      : null;
 
-    if (requestBody.success && requestQuery.success) {
-      return await handler({
-        body: requestBody.data ?? request.body,
-        query: requestQuery.data ?? request.query,
-      });
+    return await handler({
+      body: requestBody ?? request.body,
+      query: requestQuery ?? request.query,
+    });
+  } catch (error: any) {
+    if (error instanceof APIError) {
+      throw error;
+    } else if (error instanceof ZodError) {
+      throw new APIError(
+        ErrCode.InvalidArgument,
+        "Invalid arguments",
+        error,
+        error.errors?.[0]
+      );
     } else {
-      throw new APIError(ErrCode.InvalidArgument, "Missing required fields");
+      console.error("🚀 ~ handler ~ error: ", error);
+      return new APIError(ErrCode.Unknown, "Something went wrong", error);
     }
-  } catch (error) {
-    throw new APIError(ErrCode.InvalidArgument, "Missing required fields");
   }
 };

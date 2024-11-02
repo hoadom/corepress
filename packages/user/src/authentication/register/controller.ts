@@ -1,5 +1,5 @@
 import { api } from "encore.dev/api";
-import { useRegister } from "./register.handler";
+import { useRegister } from "./handler";
 
 interface Request {
   userLogin: string;
@@ -14,7 +14,7 @@ interface Response {
   meta?: any;
 }
 
-export const get = api<Request, Response>(
+export const register = api<Request, Response>(
   {
     expose: true,
     method: "POST",

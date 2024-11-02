@@ -1,1 +1,2 @@
-export * from "./register/register.controller";
+export * from "./register/controller";
+export * from "./active/controller";
