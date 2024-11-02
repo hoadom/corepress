@@ -17,7 +17,7 @@ export const active = api<Request, Response>(
   {
     expose: true,
     method: "POST",
-    path: "/active",
+    path: "/api/user/active",
   },
   async (req) => useHandler(req)
 );

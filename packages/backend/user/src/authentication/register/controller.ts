@@ -18,7 +18,7 @@ export const register = api<Request, Response>(
   {
     expose: true,
     method: "POST",
-    path: "/register",
+    path: "/api/user/register",
   },
   async (req) => useRegister(req)
 );
