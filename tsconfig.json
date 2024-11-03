@@ -13,9 +13,10 @@
 
     /* Workspace Settings */
     "composite": true,
+    "incremental": true,
 
     /* Strict Type-Checking Options */
-    "strict": true,
+    "strict": false,
 
     /* Module Resolution Options */
     "moduleResolution": "bundler",
