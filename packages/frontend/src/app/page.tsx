@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+import LoginButton from '@/components/common/login-button'
+import { Button } from '@/components/ui/button'
 
 export default function Home() {
   return (
@@ -28,8 +29,8 @@ export default function Home() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#"
                   >
-                    {" "}
-                    About{" "}
+                    {' '}
+                    About{' '}
                   </a>
                 </li>
 
@@ -38,8 +39,8 @@ export default function Home() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#"
                   >
-                    {" "}
-                    Careers{" "}
+                    {' '}
+                    Careers{' '}
                   </a>
                 </li>
 
@@ -48,8 +49,8 @@ export default function Home() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#"
                   >
-                    {" "}
-                    History{" "}
+                    {' '}
+                    History{' '}
                   </a>
                 </li>
 
@@ -58,8 +59,8 @@ export default function Home() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#"
                   >
-                    {" "}
-                    Services{" "}
+                    {' '}
+                    Services{' '}
                   </a>
                 </li>
 
@@ -68,8 +69,8 @@ export default function Home() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#"
                   >
-                    {" "}
-                    Projects{" "}
+                    {' '}
+                    Projects{' '}
                   </a>
                 </li>
 
@@ -78,8 +79,8 @@ export default function Home() {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#"
                   >
-                    {" "}
-                    Blog{" "}
+                    {' '}
+                    Blog{' '}
                   </a>
                 </li>
               </ul>
@@ -87,7 +88,9 @@ export default function Home() {
 
             <div className="flex items-center gap-4">
               <div className="sm:flex sm:gap-4">
-                <Button className="bg-teal-600"> Login </Button>
+                <LoginButton>
+                  <Button className="bg-teal-600"> Login </Button>
+                </LoginButton>
                 <Button className="bg-gray-100 text-teal-600 transition hover:text-white">
                   Register
                 </Button>
@@ -115,5 +118,5 @@ export default function Home() {
         </div>
       </header>
     </div>
-  );
+  )
 }
