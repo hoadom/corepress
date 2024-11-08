@@ -18,7 +18,11 @@ import { LoginSchema } from '@/lib/schema'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
-const FormBuilder = () => {
+export interface IFormBuilder {
+  fields: any
+}
+
+const FormBuilder = ({ fields }: IFormBuilder) => {
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -30,6 +34,7 @@ const FormBuilder = () => {
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     console.log('values', values)
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
