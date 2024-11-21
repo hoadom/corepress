@@ -1,78 +1,88 @@
 'use client'
 
 import React from 'react'
+import classname from 'clsx'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormLabel,
-  FormItem,
-  FormMessage,
-  FormDescription
-} from '@/components/ui/form'
-import { LoginSchema } from '@/lib/schema'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import { FIELDS, NotSupportField } from './fields'
 
-export interface IFormBuilder {
-  fields: any
+export interface IField {
+  name: string
+  type: 'text' | 'check-box'
+  label: string
+  meta?: {
+    inputType?: React.HTMLInputTypeAttribute
+    placeholder?: string
+  }
+  layout?: IFieldLauout
 }
 
-const FormBuilder = ({ fields }: IFormBuilder) => {
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
-    defaultValues: {
-      email: '',
-      password: ''
-    }
+export interface IFieldLauout {
+  columns?: {
+    desktop?: number
+    tablet?: number
+    mobile?: number
+  }
+}
+
+export interface IFormBuilder {
+  className?: string
+  fields: IField[]
+  defaultValues?: Record<string, any>
+  Schema: z.AnyZodObject
+  onSubmit: (values: any) => void
+}
+
+const FormBuilder = ({
+  className,
+  fields,
+  defaultValues,
+  Schema,
+  onSubmit
+}: IFormBuilder) => {
+  const form = useForm<z.infer<typeof Schema>>({
+    resolver: zodResolver(Schema),
+    defaultValues
   })
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log('values', values)
+  const fieldLayout = (layout?: IFieldLauout) => {
+    let className = 'col-span-12'
+    if (!layout) return className
+    const { columns } = layout
+    if (columns?.desktop)
+      className = `${className} xl:col-span-${columns.desktop} lg:col-span-${columns.desktop}`
+    if (columns?.tablet)
+      className = `${className} md:col-span-${columns.tablet}`
+    if (columns?.mobile)
+      className = `${className} sm:col-span-${columns.mobile}`
+    return className
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="email"
-                    placeholder="john.doe@gmail.com"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input {...field} type="password" placeholder="******" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <form
+        className={classname(className, 'w-full')}
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <div className="w-full grid grid-cols-12 gap-4">
+          {fields.map((x, index) => {
+            const FieldComponent: any =
+              (FIELDS as any)?.[x.type] ?? NotSupportField
+            return (
+              <FieldComponent
+                className={fieldLayout(x.layout)}
+                key={index}
+                control={form.control}
+                name={x.name}
+                meta={x.meta}
+                label={x.label}
+              />
+            )
+          })}
         </div>
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
       </form>
     </Form>
   )

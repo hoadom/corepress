@@ -1,4 +1,5 @@
-import LoginButton from '@/components/common/login-button'
+import LoginButton from '@/components/common/buttons/login-button'
+import RegisterButton from '@/components/common/buttons/register-button'
 import { Button } from '@/components/ui/button'
 
 export default function Home() {
@@ -91,9 +92,12 @@ export default function Home() {
                 <LoginButton>
                   <Button className="bg-teal-600"> Login </Button>
                 </LoginButton>
-                <Button className="bg-gray-100 text-teal-600 transition hover:text-white">
-                  Register
-                </Button>
+
+                <RegisterButton>
+                  <Button className="bg-gray-100 text-teal-600 transition hover:text-white">
+                    Register
+                  </Button>
+                </RegisterButton>
               </div>
 
               <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">

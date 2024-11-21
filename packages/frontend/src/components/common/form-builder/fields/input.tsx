@@ -7,30 +7,33 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { UseFormReturn } from 'react-hook-form'
+import { Control } from 'react-hook-form'
 
 interface IInputField {
-  form: UseFormReturn<any>
+  className?: string
+  control: Control<any>
   name: string
-  type: HTMLInputTypeAttribute
-  placeholder?: string
+  label: string
+  meta?: {
+    type: HTMLInputTypeAttribute
+    placeholder?: string
+  }
 }
 
-const InputField = ({
-  form,
-  type = 'text',
-  name,
-  placeholder
-}: IInputField) => {
+const InputField = ({ control, meta, name, label, className }: IInputField) => {
   return (
     <FormField
-      control={form.control}
+      control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
-          <FormLabel>Email</FormLabel>
+        <FormItem className={className}>
+          <FormLabel className='block text-sm font-bold text-gray-700' >{label}</FormLabel>
           <FormControl>
-            <Input {...field} type={type} placeholder={placeholder} />
+            <Input
+              {...field}
+              type={meta?.type ?? 'text'}
+              placeholder={meta?.placeholder}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
